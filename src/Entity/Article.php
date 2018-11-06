@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
-class Product
+class Article
 {
     /**
      * @ORM\Id()
@@ -22,9 +22,9 @@ class Product
     private $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $price;
+    private $body;
 
     public function getId(): ?int
     {
@@ -36,21 +36,21 @@ class Product
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getBody(): ?string
     {
-        return $this->price;
+        return $this->body;
     }
 
-    public function setPrice(int $price): self
+    public function setBody(string $body): self
     {
-        $this->price = $price;
+        $this->body = $body;
 
         return $this;
     }
