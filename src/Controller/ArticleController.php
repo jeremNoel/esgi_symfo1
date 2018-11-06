@@ -28,16 +28,8 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route(path="/{id}", name="show")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(path="/new", name="new")
      */
-    public function show(Article $article)
-    {
-        return $this->render('article/show.html.twig', [
-            'article' => $article
-        ]);
-    }
-
     public function new(Request $request)
     {
         $article = new Article();
@@ -52,6 +44,20 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('app_article_index');
         }
 
-        return $this->render('article/new.html.twig');
+        return $this->render('article/new.html.twig', [
+            'article' => $article,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route(path="/{id}", name="show")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show(Article $article)
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article
+        ]);
     }
 }
