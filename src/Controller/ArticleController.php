@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,18 @@ class ArticleController extends AbstractController
 
     public function new(Request $request)
     {
+        $article = new Article();
+        $form = $this->createForm(ArticleFormType::class, $article);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('app_article_index');
+        }
+
+        return $this->render('article/new.html.twig');
     }
 }
